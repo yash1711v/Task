@@ -11,10 +11,12 @@ class MydeskStopBody extends StatefulWidget {
 }
 
 class _MydeskStopBodyState extends State<MydeskStopBody> {
-  bool showMore = false;
+  int showMore = 0;
   final ScrollController _scrollController = ScrollController();
   int i = 0;
   int plan = 0;
+  final PageController controller2=PageController();
+  int contentNumer=0;
   final PageController controller=PageController();
   @override
   Widget build(BuildContext context) {
@@ -38,101 +40,222 @@ class _MydeskStopBodyState extends State<MydeskStopBody> {
                       textAlign: TextAlign.center,
                     )),
                 SizedBox(
-                  height: showMore ? 430 : 270,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 2,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                          child: Stack(
-                            children: [
-                              AnimatedContainer(
-                                duration: Duration(seconds: 1),
-                                width: MediaQuery.of(context).size.width,
-                                height: showMore ? 400 : 234,
-                                decoration: BoxDecoration(
-                                  color: Colors.green.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(
-                                      20.0), // Adjust the value as needed
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 25),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: [
-                                        Text("Three Week Image"),
-                                        SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text("3 week body rest"),
-                                        SizedBox(
-                                          height: 15,
-                                        ),
-                                        SizedBox(
-                                            width: 150,
-                                            child: Text(
-                                                "Go for Trying for rest ................................today.")),
-                                        SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text(
-                                            "...................................................."),
-                                        RichText(
-                                            text: TextSpan(
-                                              text:
-                                              'Show More!(3WBR program includes)',
-                                              style: TextStyle(
-                                                color: Colors.green,
-                                                decoration: TextDecoration.underline,
-                                              ),
-                                              recognizer: TapGestureRecognizer()
-                                                ..onTap = () {
-                                                  // Handle the click action here
-                                                  setState(() {
-                                                    showMore = !showMore;
-                                                  });
-                                                },
-                                            )),
-                                        Visibility(
-                                          visible: showMore,
-                                          child: Text("1..........."),
-                                        ),
-                                        Visibility(
-                                          visible: showMore,
-                                          child: Text("2..........."),
-                                        ),
-                                        Visibility(
-                                          visible: showMore,
-                                          child: Text("3..........."),
-                                        ),
-                                        Visibility(
-                                          visible: showMore,
-                                          child: Text("4..........."),
-                                        ),
-                                        Visibility(
-                                          visible: showMore,
-                                          child: Text("5..........."),
-                                        ),
-                                        Visibility(
-                                          visible: showMore,
-                                          child: Text("6..........."),
-                                        ),
-                                        Visibility(
-                                          visible: showMore,
-                                          child: Text("7..........."),
-                                        )
-                                      ],
-                                    ),
+                  height: showMore==1  || showMore==2 ? 425 : 250,
+                  child: PageView(
+                    onPageChanged: (int index){
+                      print("Page ${index}");
+                      setState(() {
+                        contentNumer=index;
+                      });
+                    },
+                    controller: controller2,children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 1),
+                        width: 300,
+                        height: showMore == 1? 400 : 234,
+                        decoration: BoxDecoration(
+                          color: Colors.green.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(
+                              20.0), // Adjust the value as needed
+                        ),
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 25),
+                            child: FittedBox(
+                              fit: BoxFit.fitHeight,
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                                children: [
+                                  Text("Three Week Image"),
+                                  SizedBox(
+                                    height: 15,
                                   ),
-                                ),
-                              )
-                            ],
+                                  Text("3 week body rest"),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  SizedBox(
+                                      width: 150,
+                                      child: Text(
+                                          "Go for Trying for rest ................................today.")),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text(
+                                      "...................................................."),
+                                  RichText(
+                                      text: TextSpan(
+                                        text:
+                                        'Show More!(3WBR program includes)',
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            // Handle the click action here
+                                            setState(() {
+                                              if(showMore!=1) {
+                                                showMore = 1;
+                                              }else{
+                                                showMore = 0;
+                                              }
+                                            });
+                                          },
+                                      )),
+                                  Visibility(
+                                    visible: showMore==1,
+                                    child: Text("1..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==1,
+                                    child: Text("2..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==1,
+                                    child: Text("3..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==1,
+                                    child: Text("4..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==1,
+                                    child: Text("5..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==1,
+                                    child: Text("6..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==1,
+                                    child: Text("7..........."),
+                                  ),
+
+                                ],
+                              ),
+                            ),
                           ),
-                        );
-                      }),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 1),
+                        width: 300,
+                        height: showMore==2 ? 400 : 234,
+                        decoration: BoxDecoration(
+                          color: Colors.green.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(
+                              20.0), // Adjust the value as needed
+                        ),
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 25),
+                            child: FittedBox(
+                              fit: BoxFit.fitHeight,
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                                children: [
+                                  Text("Three Week Image"),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text("3 week body rest"),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  SizedBox(
+                                      width: 150,
+                                      child: Text(
+                                          "Go for Trying for rest ................................today.")),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text(
+                                      "...................................................."),
+                                  RichText(
+                                      text: TextSpan(
+                                        text:
+                                        'Show More!(3WBR program includes)',
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            // Handle the click action here
+                                            setState(() {
+                                              if(showMore!=2) {
+                                                showMore = 2;
+                                              }else{
+                                                showMore = 0;
+                                              }
+                                            });
+                                          },
+                                      )),
+                                  Visibility(
+                                    visible: showMore==2,
+                                    child: Text("1..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==2,
+                                    child: Text("2..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==2,
+                                    child: Text("3..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==2,
+                                    child: Text("4..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==2,
+                                    child: Text("5..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==2,
+                                    child: Text("6..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==2,
+                                    child: Text("7..........."),
+                                  ) ,Visibility(
+                                    visible: showMore==2,
+                                    child: Text("8..........."),
+                                  ) ,Visibility(
+                                    visible: showMore==2,
+                                    child: Text("9..........."),
+                                  ), Visibility(
+                                    visible: showMore==2,
+                                    child: Text("10..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==2,
+                                    child: Text("11..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==2,
+                                    child: Text("12..........."),
+                                  ),
+                                  Visibility(
+                                    visible: showMore==2,
+                                    child: Text("13..........."),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],),
                 ),
                 SizedBox(
                   height: 15,
@@ -179,7 +302,7 @@ class _MydeskStopBodyState extends State<MydeskStopBody> {
                               SizedBox(
                                 height: 100,
                               ),
-                              Center(child: Text("Plan 1")),
+                              Center(child: contentNumer==0?Text("Plan 1"):Text("Plan 2")),
                             ],
                           ),
                         ),
@@ -225,7 +348,7 @@ class _MydeskStopBodyState extends State<MydeskStopBody> {
                               SizedBox(
                                 height: 100,
                               ),
-                              Center(child: Text("Plan 1")),
+                              Center(child: contentNumer==1?Text("Plan 1"):Text("Plan 2")),
                             ],
                           ),
                         ),
